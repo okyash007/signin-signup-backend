@@ -5,11 +5,14 @@ import jwt from "jsonwebtoken";
 import { generatePassword, generateUsername } from "../utils/help.js";
 
 export const signup = async (req, res, next) => {
-  //   console.log(req.body);
-
-  const { username, email, password } = req.body;
+  const { username, email, password, fullname } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username, email, password: hashedPassword });
+  const newUser = new User({
+    username,
+    email,
+    fullname,
+    password: hashedPassword,
+  });
 
   try {
     await newUser.save();
@@ -57,6 +60,7 @@ export const google = async (req, res, next) => {
       const password = generatePassword();
       const hashedPassword = bcryptjs.hashSync(password, 10);
       const newUser = new User({
+        fullname: req.body.fullname,
         username: generateUsername(req.body.name),
         email: req.body.email,
         password: hashedPassword,
