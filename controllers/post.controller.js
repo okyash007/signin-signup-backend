@@ -108,3 +108,24 @@ export const deletPost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getPostById = async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id)
+      .populate("user", "-password")
+      .populate("likes");
+
+    res.status(200).json(post);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllPosts = async (req, res, next) => {
+  try {
+    const posts = await Post.find().populate("user", "-password");
+    res.status(200).json(posts);
+  } catch (error) {
+    next(error);
+  }
+};
