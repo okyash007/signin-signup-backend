@@ -22,11 +22,15 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+const corsOrigin = {
+  origin: "*",
+};
 
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use(cors(corsOrigin));
 
 app.listen(process.env.PORT, () => {
   console.log("server is running");

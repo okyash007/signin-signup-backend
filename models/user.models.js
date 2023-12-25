@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     avatar: {
       type: String,
       default:
-        "https://as.nyu.edu/content/dam/nyu-as/faculty/images/profilePhotos/profile-image-placeholder.png",
+        "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg",
     },
     role: {
       type: String,

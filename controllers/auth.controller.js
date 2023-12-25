@@ -16,7 +16,12 @@ export const signup = async (req, res, next) => {
 
   try {
     await newUser.save();
-    res.status(201).json("user created sucessfully");
+
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+
+    const { password: pass, ...rest } = newUser._doc;
+
+    res.cookie("acess_token", token, { httpOnly: true }).status(200).json(rest);
   } catch (error) {
     next(error);
   }
@@ -39,7 +44,7 @@ export const signin = async (req, res, next) => {
 
     const { password: pass, ...rest } = validUser._doc;
 
-    res.cookie("acess_token", token, { httpOnly: true }).status(200).json(rest);
+    res.status(200).cookie("acess_token", token, { httpOnly: true }).json(rest);
   } catch (error) {
     next(error);
   }
@@ -61,14 +66,14 @@ export const google = async (req, res, next) => {
       const hashedPassword = bcryptjs.hashSync(password, 10);
       const newUser = new User({
         fullname: req.body.fullname,
-        username: generateUsername(req.body.name),
+        username: generateUsername(req.body.fullname),
         email: req.body.email,
         password: hashedPassword,
         avatar: req.body.photo,
       });
       await newUser.save();
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      const { password: pass, ...rest } = user._doc;
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      const { password: pass, ...rest } = newUser._doc;
 
       res
         .cookie("acess_token", token, { httpOnly: true })
