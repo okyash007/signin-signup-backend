@@ -23,7 +23,7 @@ connectDB();
 const app = express();
 
 const corsOrigin = {
-  origin: "http://localhost:5173/",
+  origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
 };
 
