@@ -24,13 +24,16 @@ const app = express();
 
 const corsOrigin = {
   origin: "*",
+  optionsSuccessStatus: 200,
 };
+
+app.use(cors(corsOrigin));
 
 app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(cors(corsOrigin));
+
 
 app.listen(process.env.PORT, () => {
   console.log("server is running");
