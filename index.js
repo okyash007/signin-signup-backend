@@ -20,14 +20,11 @@ dotenv.config();
 
 connectDB();
 
+app.use(cors());
+
 const app = express();
 
-const corsOrigin = {
-  origin: "http://localhost:5173",
-  optionsSuccessStatus: 200,
-};
 
-app.use(cors(corsOrigin));
 
 app.use(express.json());
 
