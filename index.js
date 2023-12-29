@@ -20,11 +20,14 @@ dotenv.config();
 
 connectDB();
 
-
-
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://instagram-frontend-ten.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
