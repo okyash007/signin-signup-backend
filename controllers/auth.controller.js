@@ -21,7 +21,14 @@ export const signup = async (req, res, next) => {
 
     const { password: pass, ...rest } = newUser._doc;
 
-    res.cookie("acess_token", token, { httpOnly: true }).status(200).json(rest);
+    res
+      .cookie("acess_token", token, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      })
+      .status(200)
+      .json(rest);
   } catch (error) {
     next(error);
   }
